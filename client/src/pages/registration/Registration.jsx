@@ -37,7 +37,16 @@ function Registration() {
       });
       form.resetFields();
     }
-  }, [status]);
+  }, [status, api, dispatch, form]);
+
+  const user = localStorage.getItem("user");
+  const isLogged = localStorage.getItem("isLogged");
+
+  React.useEffect(() => {
+    if (user && isLogged) {
+      navigate("/profile");
+    }
+  }, [user, isLogged, navigate]);
 
   const handleSubmitRegistrationForm = (data) => {
     dispatch(registerUser(data));
@@ -51,6 +60,7 @@ function Registration() {
       justifyContent: "center",
       alignItems: "center",
     }}>
+      {contextHolder}
         <Card
         style={{
           width: 500,
